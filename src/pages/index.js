@@ -5,10 +5,17 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { formSchema } from '@/validationSchema/formSchema';
 import { Box, Grid, Typography } from '@mui/material';
+// import { PDFDownloadLink} from '@react-pdf/renderer';
+import MyDocument from '@/components/Document';
+import dynamic from 'next/dynamic';
+
+const PDFDownloadLink = dynamic(
+  () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
+  { ssr: false }
+);
+
 
 const CvForm = () => {
-  const [formValue, setFormValue] = useState()
-  console.log(formValue.fullName);
   
   const formik = useFormik({
     initialValues: {
@@ -18,7 +25,6 @@ const CvForm = () => {
     validationSchema: formSchema,
     onSubmit: (values) => {
           // console.log(values);
-          setFormValue(values)
       // alert(JSON.stringify(values, null, 2));
     },
   });
@@ -60,8 +66,7 @@ const CvForm = () => {
             <TextField
               required
               fullWidth
-              id="fullName"fullName
-              name=""
+              name="fullName"
               label="Full Name"
               type="text"
               variant="outlined"
@@ -73,12 +78,20 @@ const CvForm = () => {
             />
           </Grid>
         </Grid>
-        <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
+        {/* <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
           <Button color="primary" variant="contained" type="submit">
             Submit
           </Button>
-        </Grid>
+        </Grid> */}
       </form>
+      <PDFDownloadLink
+        document={<MyDocument formData={formik.values} />}
+        fileName={`${formik.values.fullName}.pdf`}
+      >
+        {({ loading }) =>
+          loading ? 'Generating PDF...' : 'Download PDF'
+        }
+      </PDFDownloadLink>
     </div>
   );
 };
