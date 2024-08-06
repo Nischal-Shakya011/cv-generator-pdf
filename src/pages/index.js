@@ -8,6 +8,7 @@ import { Box, Grid, Typography } from '@mui/material';
 // import { PDFDownloadLink} from '@react-pdf/renderer';
 import MyDocument from '@/components/Document';
 import dynamic from 'next/dynamic';
+import MaxHeightTextarea from '../components/TextArea';
 
 const PDFDownloadLink = dynamic(
   () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
@@ -48,6 +49,21 @@ const CvForm = () => {
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2} py={3}>
+        <Grid item xs={6}>
+            <TextField
+              required
+              fullWidth
+              name="fullName"
+              label="Full Name"
+              type="text"
+              variant="outlined"
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+              helperText={formik.touched.fullName && formik.errors.fullName}
+            />
+          </Grid>
           <Grid item xs={6}>
             <TextField
               required
@@ -66,17 +82,49 @@ const CvForm = () => {
             <TextField
               required
               fullWidth
-              name="fullName"
-              label="Full Name"
-              type="text"
+              name="github"
+              label="Github Link"
               variant="outlined"
-              value={formik.values.fullName}
+              value={formik.values.github}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.fullName && Boolean(formik.errors.fullName)}
-              helperText={formik.touched.fullName && formik.errors.fullName}
+              error={formik.touched.github && Boolean(formik.errors.github)}
+              helperText={formik.touched.github && formik.errors.github}
             />
           </Grid>
+          <Grid item xs={6}>
+            <TextField
+              required
+              fullWidth
+              name="contact"
+              label="Contact No"
+              variant="outlined"
+              value={formik.values.contact}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.contact && Boolean(formik.errors.contact)}
+              helperText={formik.touched.contact && formik.errors.contact}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              required
+              fullWidth
+              name="address"
+              label="Address"
+              variant="outlined"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.address && Boolean(formik.errors.address)}
+              helperText={formik.touched.address && formik.errors.address}
+            />
+          </Grid>
+          <Grid item xs={6}>
+         <MaxHeightTextarea/>
+          </Grid>
+
+          
         </Grid>
         {/* <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
           <Button color="primary" variant="contained" type="submit">

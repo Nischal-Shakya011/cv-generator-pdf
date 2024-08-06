@@ -25,6 +25,9 @@ export default function MyDocument({formData}) {
       <View style={styles.section}>
         <Text>Email: {formData?.email}</Text>
       </View>
+      <View style={styles.section}>
+        <Text>Github: {formData?.github}</Text>
+      </View>
     </Page>
   </Document>
   )
