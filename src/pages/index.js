@@ -15,13 +15,12 @@ const PDFDownloadLink = dynamic(
   { ssr: false }
 );
 
-
 const CvForm = () => {
   
   const formik = useFormik({
     initialValues: {
       email: '',
-      fullName: '', // Ensure all form fields have initial values
+      fullName: '', 
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
@@ -29,7 +28,6 @@ const CvForm = () => {
       // alert(JSON.stringify(values, null, 2));
     },
   });
-
 
   return (
     <div className='p-6 m-auto'>
@@ -119,6 +117,23 @@ const CvForm = () => {
               error={formik.touched.address && Boolean(formik.errors.address)}
               helperText={formik.touched.address && formik.errors.address}
             />
+          </Grid>
+          <Grid item xs={6}>
+          <TextField
+          name="dateOfBirth"
+          label="Date of Birth"
+          type="date"
+          required
+          InputLabelProps={{ shrink: true }}
+          fullWidth
+          value={formik.values.dateOfBirth}
+          onChange={formik.handleChange}
+          error={
+            formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)
+          }
+          // inputProps={{ max: minAge }}
+          helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
+        />
           </Grid>
           <Grid item xs={6}>
          <MaxHeightTextarea/>
