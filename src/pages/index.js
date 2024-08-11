@@ -100,7 +100,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.fullName && formik.errors.fullName}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               required
               fullWidth
@@ -114,7 +114,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.email && formik.errors.email}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               required
               fullWidth
@@ -128,7 +128,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.github && formik.errors.github}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               required
               fullWidth
@@ -142,7 +142,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.contact && formik.errors.contact}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               required
               fullWidth
@@ -156,7 +156,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.address && formik.errors.address}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               required
               fullWidth
@@ -170,7 +170,7 @@ const removeEducationField = (index) => {
               helperText={formik.touched.linkedin && formik.errors.linkedin}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
           <TextField
           name="dateOfBirth"
           label="Date of Birth"
@@ -187,7 +187,7 @@ const removeEducationField = (index) => {
           helperText={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
         />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
          <MaxHeightTextarea/>
           </Grid>
 
@@ -214,7 +214,7 @@ const removeEducationField = (index) => {
         </Grid>
 {formik.values.education.map((field, index) => (
   <React.Fragment key={index}>
-    <Grid item xs={4}>
+    <Grid item xs={12} md={4}>
       <TextField
         required
         fullWidth
@@ -228,7 +228,7 @@ const removeEducationField = (index) => {
         helperText={formik.touched.education && formik.errors.education && formik.errors.education[index]?.degree}
       />
     </Grid>
-    <Grid item xs={4}>
+    <Grid item xs={12} md={4}>
       <TextField
         required
         fullWidth
@@ -242,7 +242,7 @@ const removeEducationField = (index) => {
         helperText={formik.touched.education && formik.errors.education && formik.errors.education[index]?.institution}
       />
     </Grid>
-    <Grid item xs={4}>
+    <Grid item xs={12} md={4}>
       <TextField
         required
         fullWidth
@@ -269,12 +269,16 @@ const removeEducationField = (index) => {
   </React.Fragment>
 ))}
 
-<Grid item xs={12} display={'flex'} justifyContent={'flex-end'}>
+<Grid item 
+xs={12} 
+// display={'flex'} 
+// justifyContent={'flex-end'}
+>
   <Button variant="contained" onClick={addEducationField}>
     Add Education
   </Button>
   </Grid> 
-  
+
   </Grid>
  <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
   <Button color="primary" variant="contained" type="submit">
