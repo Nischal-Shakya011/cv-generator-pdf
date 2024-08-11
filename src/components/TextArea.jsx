@@ -59,10 +59,10 @@ export default function MaxHeightTextarea() {
   return (
     <Textarea
       maxRows={4}
+      minRows={2}
       aria-label="maximum height"
-      placeholder="Maximum 4 rows"
-      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua."
+      placeholder="Profile"
+      defaultValue=""
     />
   );
 }
