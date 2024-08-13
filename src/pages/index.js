@@ -16,7 +16,7 @@ const PDFDownloadLink = dynamic(
 );
 
 const CvForm = () => {
-
+  const [experienceFields, setExperienceFields] = useState([{ title: '', company: '', period: '', responsibilities: [''] }]);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -27,6 +27,7 @@ const CvForm = () => {
       linkedin: '',
       dateOfBirth: '',
       education: [{ degree: '', institution: '', year: '' }],
+      experience: [{ title: '', company: '', period: '', responsibilities: [''] }]
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
@@ -40,10 +41,37 @@ const addEducationField = () => {
     { degree: '', institution: '', year: '' },
   ]);
 };
+
 const removeEducationField = (index) => {
   const updatedEducationField = formik.values.education.filter((_, i) => i !== index )
   formik.setFieldValue('education', updatedEducationField)
 }
+
+const addExperienceField = () => {
+  formik.setFieldValue('experience', [
+    ...formik.values.experience,
+    { title: '', company: '', period: '', responsibilities: [''] },
+  ]);
+};
+// const addExperienceField = () => {
+//   const newExperienceFields = [...experienceFields, { title: '', company: '', period: '', responsibilities: [''] }];
+//   setExperienceFields(newExperienceFields);
+//   formik.setFieldValue('experience', newExperienceFields);
+// };
+
+// const handleResponsibilitiesChange = (e, index, responsibilityIndex) => {
+//   const updatedExperienceFields = [...experienceFields];
+//   updatedExperienceFields[index].responsibilities[responsibilityIndex] = e.target.value;
+//   setExperienceFields(updatedExperienceFields);
+//   formik.setFieldValue('experience', updatedExperienceFields);
+// };
+
+  const addResponsibility = (index) => {
+  const updatedExperienceFields = [...experienceFields];
+  updatedExperienceFields[index].responsibilities.push('');
+  setExperienceFields(updatedExperienceFields);
+  formik.setFieldValue('experience', updatedExperienceFields);
+};
 
   return (
     <div className='p-6 m-auto'>
@@ -81,7 +109,7 @@ const removeEducationField = (index) => {
         }}
       >
         <Typography variant="h5">
-         Basic information
+         Basic Information
         </Typography>
       </Box>
         </Grid>
@@ -279,6 +307,94 @@ xs={12}
   </Button>
   </Grid> 
 
+  <Grid item 
+      xs={12}
+      display={'flex'} 
+      justifyContent={'center'}
+      >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '8px',
+          bgcolor: 'green',
+          color: 'white', 
+          width: '100%'
+        }}
+      >
+        <Typography variant="h5">
+         Add Experience
+        </Typography>
+      </Box>
+        </Grid>
+        {formik.values.experience.map((field, index) => (
+            <React.Fragment key={index}>
+              <Grid item xs={3}>
+                <TextField
+                  required
+                  fullWidth
+                  name={`experience[${index}].title`}
+                  label="Job Title"
+                  variant="outlined"
+                  value={field.title}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && formik.errors.experience && Boolean(formik.errors.experience[index]?.title)}
+                  helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.title}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  required
+                  fullWidth
+                  name={`experience[${index}].company`}
+                  label="Company Name"
+                  variant="outlined"
+                  value={field.company}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && formik.errors.experience && Boolean(formik.errors.experience[index]?.company)}
+                  helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.company}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  required
+                  fullWidth
+                  name={`experience[${index}].period`}
+                  label="Date Period"
+                  variant="outlined"
+                  value={field.period}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && formik.errors.experience && Boolean(formik.errors.experience[index]?.period)}
+                  helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.period}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                {field.responsibilities.map((responsibility, responsibilityIndex) => (
+                  <TextField
+                    key={responsibilityIndex}
+                    required
+                    fullWidth
+                    name={`experience[${index}].responsibilities[${responsibilityIndex}]`}
+                    label={`Responsibility ${responsibilityIndex + 1}`}
+                    variant="outlined"
+                    value={responsibility}
+                    onChange={(e) => handleResponsibilitiesChange(e, index, responsibilityIndex)}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.experience && formik.errors.experience && Boolean(formik.errors.experience[index]?.responsibilities[responsibilityIndex])}
+                    helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.responsibilities[responsibilityIndex]}
+                  />
+                ))}
+                <Button variant="outlined" onClick={() => addResponsibility(index)}>Add Responsibility</Button>
+              </Grid>
+            </React.Fragment>
+          ))}
+          <Grid item xs={12}>
+            <Button variant="contained" onClick={addExperienceField}>Add Experience</Button>
+          </Grid>
   </Grid>
  <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
   <Button color="primary" variant="contained" type="submit">
