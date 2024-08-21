@@ -9,6 +9,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import MyDocument from '@/components/Document';
 import dynamic from 'next/dynamic';
 import MaxHeightTextarea from '../components/TextArea';
+// import Rough from '../components/Rough'
 
 const PDFDownloadLink = dynamic(
   () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
@@ -59,12 +60,17 @@ const addExperienceField = () => {
 //   formik.setFieldValue('experience', newExperienceFields);
 // };
 
-// const handleResponsibilitiesChange = (e, index, responsibilityIndex) => {
-//   const updatedExperienceFields = [...experienceFields];
-//   updatedExperienceFields[index].responsibilities[responsibilityIndex] = e.target.value;
-//   setExperienceFields(updatedExperienceFields);
-//   formik.setFieldValue('experience', updatedExperienceFields);
-// };
+const handleResponsibilitiesChange = (e, index, responsibilityIndex) => {
+  e.preventDefault();
+  const updatedExperienceFields = [...experienceFields];
+  updatedExperienceFields[index].responsibilities[responsibilityIndex] = e.target.value;
+  setExperienceFields(updatedExperienceFields);
+  formik.setFieldValue('experience', updatedExperienceFields);
+  // formik.setFieldValue('experience', [
+  //   ...formik.values.experience,
+  //   updatedExperienceFields,
+  // ]);
+};
 
   const addResponsibility = (index) => {
   const updatedExperienceFields = [...experienceFields];
@@ -74,6 +80,8 @@ const addExperienceField = () => {
 };
 
   return (
+  <>
+  {/* <Rough/> */}
     <div className='p-6 m-auto'>
       <Box
         sx={{
@@ -411,6 +419,7 @@ xs={12}
         }
       </PDFDownloadLink>
     </div>
+    </>
   );
 };
 
