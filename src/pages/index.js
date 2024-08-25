@@ -49,36 +49,25 @@ const removeEducationField = (index) => {
 }
 
 const addExperienceField = () => {
-  formik.setFieldValue('experience', [
+  const newExperienceFields = [
     ...formik.values.experience,
     { title: '', company: '', period: '', responsibilities: [''] },
-  ]);
+  ];
+
+  formik.setFieldValue('experience', newExperienceFields);
 };
-// const addExperienceField = () => {
-//   const newExperienceFields = [...experienceFields, { title: '', company: '', period: '', responsibilities: [''] }];
-//   setExperienceFields(newExperienceFields);
-//   formik.setFieldValue('experience', newExperienceFields);
-// };
 
 const handleResponsibilitiesChange = (e, index, responsibilityIndex) => {
-  e.preventDefault();
-  const updatedExperienceFields = [...experienceFields];
+  const updatedExperienceFields = [...formik.values.experience];
   updatedExperienceFields[index].responsibilities[responsibilityIndex] = e.target.value;
-  setExperienceFields(updatedExperienceFields);
   formik.setFieldValue('experience', updatedExperienceFields);
-  // formik.setFieldValue('experience', [
-  //   ...formik.values.experience,
-  //   updatedExperienceFields,
-  // ]);
 };
 
-  const addResponsibility = (index) => {
-  const updatedExperienceFields = [...experienceFields];
+const addResponsibility = (index) => {
+  const updatedExperienceFields = [...formik.values.experience];
   updatedExperienceFields[index].responsibilities.push('');
-  setExperienceFields(updatedExperienceFields);
   formik.setFieldValue('experience', updatedExperienceFields);
 };
-
   return (
   <>
   {/* <Rough/> */}
@@ -252,7 +241,7 @@ const handleResponsibilitiesChange = (e, index, responsibilityIndex) => {
   <React.Fragment key={index}>
     <Grid item xs={12} md={4}>
       <TextField
-        required
+        requiredad
         fullWidth
         name={`education[${index}].degree`}
         label="Degree"
@@ -396,7 +385,17 @@ xs={12}
                     helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.responsibilities[responsibilityIndex]}
                   />
                 ))}
-                <Button variant="outlined" onClick={() => addResponsibility(index)}>Add Responsibility</Button>
+                <Button 
+                sx={{
+                  backgroundColor:"green",
+                  color:"white",
+                  marginTop:"4px",
+                  '&:hover':{
+                    backgroundColor:"darkgreen"
+                  }
+                }} 
+                onClick={() => addResponsibility(index)}
+                >Add Responsibility</Button>
               </Grid>
             </React.Fragment>
           ))}
