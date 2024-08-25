@@ -17,7 +17,6 @@ const PDFDownloadLink = dynamic(
 );
 
 const CvForm = () => {
-  const [experienceFields, setExperienceFields] = useState([{ title: '', company: '', period: '', responsibilities: [''] }]);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -48,6 +47,11 @@ const removeEducationField = (index) => {
   formik.setFieldValue('education', updatedEducationField)
 }
 
+const removeExperienceField = (index) => {
+  const updatedExperienceField = formik.values.experience.filter((_, i) => i !== index )
+  formik.setFieldValue('experience', updatedExperienceField)
+}
+
 const addExperienceField = () => {
   const newExperienceFields = [
     ...formik.values.experience,
@@ -68,6 +72,15 @@ const addResponsibility = (index) => {
   updatedExperienceFields[index].responsibilities.push('');
   formik.setFieldValue('experience', updatedExperienceFields);
 };
+
+
+const removeResponsibility = (experienceIndex, responsibilityIndex) => {
+  const updatedExperience = [...formik.values.experience];
+  updatedExperience[experienceIndex].responsibilities.splice(responsibilityIndex, 1);
+
+  formik.setFieldValue('experience', updatedExperience);
+};
+
   return (
   <>
   {/* <Rough/> */}
@@ -371,6 +384,7 @@ xs={12}
               </Grid>
               <Grid item xs={3}>
                 {field.responsibilities.map((responsibility, responsibilityIndex) => (
+                  <>
                   <TextField
                     key={responsibilityIndex}
                     required
@@ -379,11 +393,19 @@ xs={12}
                     label={`Responsibility ${responsibilityIndex + 1}`}
                     variant="outlined"
                     value={responsibility}
+                    sx={{marginTop:responsibilityIndex > 0 && 2}}
                     onChange={(e) => handleResponsibilitiesChange(e, index, responsibilityIndex)}
                     onBlur={formik.handleBlur}
                     error={formik.touched.experience && formik.errors.experience && Boolean(formik.errors.experience[index]?.responsibilities[responsibilityIndex])}
                     helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.responsibilities[responsibilityIndex]}
                   />
+                  <Button 
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => removeResponsibility(index, responsibilityIndex)}
+                  sx={{backgroundColor:"red"}}
+                  >Remove Responsibility</Button>
+                  </>
                 ))}
                 <Button 
                 sx={{
@@ -396,6 +418,16 @@ xs={12}
                 }} 
                 onClick={() => addResponsibility(index)}
                 >Add Responsibility</Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => removeExperienceField(index)}
+                  sx={{backgroundColor:"red"}}
+                >
+                  Remove
+                </Button>
               </Grid>
             </React.Fragment>
           ))}
