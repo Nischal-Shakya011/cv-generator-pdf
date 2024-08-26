@@ -9,6 +9,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import MyDocument from '@/components/Document';
 import dynamic from 'next/dynamic';
 import MaxHeightTextarea from '../components/TextArea';
+import Skill from '../components/Skill'
 // import Rough from '../components/Rough'
 
 const PDFDownloadLink = dynamic(
@@ -27,7 +28,8 @@ const CvForm = () => {
       linkedin: '',
       dateOfBirth: '',
       education: [{ degree: '', institution: '', year: '' }],
-      experience: [{ title: '', company: '', period: '', responsibilities: [''] }]
+      experience: [{ title: '', company: '', period: '', responsibilities: [''] }],
+      skills: [],
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
@@ -73,7 +75,6 @@ const addResponsibility = (index) => {
   formik.setFieldValue('experience', updatedExperienceFields);
 };
 
-
 const removeResponsibility = (experienceIndex, responsibilityIndex) => {
   const updatedExperience = [...formik.values.experience];
   updatedExperience[experienceIndex].responsibilities.splice(responsibilityIndex, 1);
@@ -99,9 +100,9 @@ const removeResponsibility = (experienceIndex, responsibilityIndex) => {
          Generate Your CV
         </Typography>
       </Box>
+
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={2} py={3}>
-        
+      <Grid container spacing={2} py={3}>
       <Grid item 
       xs={12}
       display={'flex'} 
@@ -409,13 +410,10 @@ xs={12}
                 ))}
                 <Button 
                 sx={{
-                  backgroundColor:"green",
-                  color:"white",
-                  marginTop:"4px",
-                  '&:hover':{
-                    backgroundColor:"darkgreen"
-                  }
+                marginTop:"4px",
                 }} 
+                variant="contained"
+                color="primary"
                 onClick={() => addResponsibility(index)}
                 >Add Responsibility</Button>
               </Grid>
@@ -435,6 +433,7 @@ xs={12}
             <Button variant="contained" onClick={addExperienceField}>Add Experience</Button>
           </Grid>
   </Grid>
+  <Skill formik={formik}/>
  <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
   <Button color="primary" variant="contained" type="submit">
    Submit

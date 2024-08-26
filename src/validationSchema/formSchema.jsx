@@ -14,4 +14,8 @@ export const formSchema = yup.object({
     .matches(/^[A-Za-z]+ [A-Za-z]+$/, 'Enter a valid fullname')
     .required('Full name is required'),
 
+    address: yup.
+    string('Enter your address')
+    .required('Address is required'),
+
   });
