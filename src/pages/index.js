@@ -341,7 +341,7 @@ xs={12}
         </Grid>
         {formik.values.experience.map((field, index) => (
             <React.Fragment key={index}>
-              <Grid item xs={3}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   required
                   fullWidth
@@ -355,7 +355,7 @@ xs={12}
                   helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.title}
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   required
                   fullWidth
@@ -369,7 +369,7 @@ xs={12}
                   helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.company}
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} md={3}>
                 <TextField
                   required
                   fullWidth
@@ -383,7 +383,7 @@ xs={12}
                   helperText={formik.touched.experience && formik.errors.experience && formik.errors.experience[index]?.period}
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} md={3}>
                 {field.responsibilities.map((responsibility, responsibilityIndex) => (
                   <>
                   <TextField

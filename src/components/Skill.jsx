@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Autocomplete, TextField, Chip, Grid, Box, Typography } from '@mui/material';
 
 const SkillsInput = ({formik}) => {
     const [skills, setSkills] = useState(['JavaScript', 'React', 'Node.js']);
-    const handleSkillChange = (event, newValue) => {
-    const inputValue = event.target.value;
-    const lastValue = newValue[newValue.length - 1];
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          const savedSkills = localStorage.getItem('skills');
+          if (savedSkills) {
+            setSkills(JSON.parse(savedSkills));
+          }
+        }
+      }, []);
+   
+//     const handleSkillChange = (event, newValue) => {
+//     const inputValue = event.target.value;
+//     const lastValue = newValue[newValue.length - 1];
 
-    // Check if the last value is a new skill
+//     // Check if the last value is a new skill
+//     if (lastValue && !skills.includes(lastValue)) {
+//       setSkills([...skills, lastValue]); // Add the new skill to the skills list
+//     }
+//     formik.setFieldValue('skills', newValue);
+//   };
+const handleSkillChange = (event, newValue) => {
+    const lastValue = newValue[newValue.length - 1];
     if (lastValue && !skills.includes(lastValue)) {
-      setSkills([...skills, lastValue]); // Add the new skill to the skills list
+      const updatedSkills = [...skills, lastValue];
+      setSkills(updatedSkills);
+      localStorage.setItem('skills', JSON.stringify(updatedSkills)); // Save to local storage
     }
     formik.setFieldValue('skills', newValue);
   };
