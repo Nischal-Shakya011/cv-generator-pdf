@@ -10,6 +10,7 @@ import MyDocument from '@/components/Document';
 import dynamic from 'next/dynamic';
 import MaxHeightTextarea from '../components/TextArea';
 import Skill from '../components/Skill'
+import {useDropzone} from 'react-dropzone'
 // import Rough from '../components/Rough'
 
 const PDFDownloadLink = dynamic(
@@ -18,6 +19,8 @@ const PDFDownloadLink = dynamic(
 );
 
 const CvForm = () => {
+  const [previewUrl, setPreviewUrl] = useState(null);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -80,6 +83,13 @@ const removeResponsibility = (experienceIndex, responsibilityIndex) => {
   updatedExperience[experienceIndex].responsibilities.splice(responsibilityIndex, 1);
 
   formik.setFieldValue('experience', updatedExperience);
+};
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const fileUrl = URL.createObjectURL(file);
+  setPreviewUrl(fileUrl);
+  formik.setFieldValue('image', fileUrl);
 };
 
   return (
@@ -434,6 +444,37 @@ xs={12}
           </Grid>
   </Grid>
   <Skill formik={formik}/>
+  {/* <Grid item xs={12}>
+  <Button
+              variant="contained"
+              component="label"
+              fullWidth
+              sx={{ mb: 2 }}
+            >
+              Upload Image
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </Button>
+  </Grid> */}
+  <div
+  style={{
+    width: "30%",
+    border: "1px solid red",
+  }}>
+        <input
+          id="image"
+          name="image"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+        {previewUrl && <img src={previewUrl} alt="Preview" width="200" />}
+        {formik.errors.image ? <div>{formik.errors.image}</div> : null}
+      </div>
  <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
   <Button color="primary" variant="contained" type="submit">
    Submit

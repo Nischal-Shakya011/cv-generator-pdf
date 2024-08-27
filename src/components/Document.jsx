@@ -1,5 +1,5 @@
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 
 
 export default function MyDocument({formData}) {
@@ -25,9 +25,11 @@ export default function MyDocument({formData}) {
       <View style={styles.section}>
         <Text>Email: {formData?.email}</Text>
       </View>
-      <View style={styles.section}>
-        <Text>Github: {formData?.github}</Text>
-      </View>
+     
+        <View style={[{ width: "150px", height: "160px" }]}>
+          <Image src={formData?.image} />
+        </View>      
+       
     </Page>
   </Document>
   )
