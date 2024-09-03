@@ -12,6 +12,7 @@ import MaxHeightTextarea from '../components/TextArea';
 import Skill from '../components/Skill'
 import {useDropzone} from 'react-dropzone'
 // import Rough from '../components/Rough'
+import StyledDropzone from '../components/PhotoDropzone'
 
 const PDFDownloadLink = dynamic(
   () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
@@ -33,6 +34,7 @@ const CvForm = () => {
       education: [{ degree: '', institution: '', year: '' }],
       experience: [{ title: '', company: '', period: '', responsibilities: [''] }],
       skills: [],
+      image: []
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
@@ -443,38 +445,11 @@ xs={12}
             <Button variant="contained" onClick={addExperienceField}>Add Experience</Button>
           </Grid>
   </Grid>
+  
   <Skill formik={formik}/>
-  {/* <Grid item xs={12}>
-  <Button
-              variant="contained"
-              component="label"
-              fullWidth
-              sx={{ mb: 2 }}
-            >
-              Upload Image
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </Button>
-  </Grid> */}
-  <div
-  style={{
-    width: "30%",
-    border: "1px solid red",
-  }}>
-        <input
-          id="image"
-          name="image"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
-        {previewUrl && <img src={previewUrl} alt="Preview" width="200" />}
-        {formik.errors.image ? <div>{formik.errors.image}</div> : null}
-      </div>
+
+  <StyledDropzone formik={formik}/>
+
  <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 2 }}>
   <Button color="primary" variant="contained" type="submit">
    Submit
