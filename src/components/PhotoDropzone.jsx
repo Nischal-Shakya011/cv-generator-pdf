@@ -6,7 +6,6 @@ import InsertImage from '../assets/InsertImage.png'
 import Image from 'next/image';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 export default function StyledDropzone({formik}) {
 const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -17,7 +16,11 @@ const [previewUrl, setPreviewUrl] = useState(null);
   };
 
 return (
-    <Grid container py={3} sx={{display:"flex", justifyContent: "center"}}>
+    <Grid container py={3} 
+        sx={{
+        display:"flex",
+        justifyContent: "center"
+        }}>
     <Grid item 
     xs={12}
     display={'flex'} 
@@ -54,41 +57,21 @@ return (
     <section>
       <div {...getRootProps()} className='text-center'>
         <input {...getInputProps()} />
-        {/* <Button
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '8px',
-          bgcolor: '#f2b5b1',
-          color: 'white', 
-          width: '100%'
-        }}
-        // onClick={setPreviewUrl(false)}
-      >
-        <Typography variant="h5">
-        Delete
-        </Typography>
-      </Button> */}
-      {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
-        Delete
-      </Button> */}
         <div>
         <Image
             src={InsertImage}
             alt="Upload Image"
-            style={{ width: "250px", height: "250px", marginBottom: "20px" }}
+            style={{ 
+                width: "250px",
+                height: "250px",
+                marginBottom: "20px" }}
             height={200}
             width={200}
           />
         <p>Drag and drop some files here, or click to select files</p>
         <em>(support png or jpg file only)</em>
-        </div>
-        
+        </div> 
       </div>
-      {/* <div>
-    {previewUrl && <img src={previewUrl} alt="Preview" width="200" />}
-      </div> */}
     </section>
   )}
 </Dropzone>
