@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Grid, Typography,Box, Button } from '@mui/material';
 import Dropzone from 'react-dropzone';
 import InsertImage from '../assets/InsertImage.png'
+
 import Image from 'next/image';
 import DeleteIcon from '@mui/icons-material/Delete';
 
