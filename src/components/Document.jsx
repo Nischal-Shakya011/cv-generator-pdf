@@ -11,39 +11,34 @@ export default function MyDocument({formData}) {
           padding: 20,
         },
         section: {
-          // margin: 10,
-          // padding: 10,
-          // flexGrow: 1,
+          paddingVertical: 8,
         },
         text: {
           fontSize: 12,
-          padding:"4px"
         },
-        icon: {
-          width: 12, // Adjust the size of the icon
-          height: 12,
-          marginRight: 4,
+        header:{
+          fontSize: 14,
+          fontWeight: 'bold',
+          borderBottom: '1px solid black',
+          width: '100%'
         },
-        row: {
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center', // Aligns items vertically in the center
-          justifyContent: 'space-between',
-        },
+
       });
   return (
     <Document>
     <Page size="A4" style={styles.page}>
-      <View style={[styles,
+
+      <View style={[styles.section,
         {
           textAlign:"center",
-          fontSize: 18,
-          fontWeight: 'bold'
+          fontSize: 16,
+          fontWeight: 'bold',
         }
       ]}>
         <Text>{formData?.fullName}</Text>
       </View>
-      <View style={[styles.text,
+
+      <View style={[styles.text, styles.section,
         {
           display:"flex",
           flexDirection:"row",
@@ -52,16 +47,38 @@ export default function MyDocument({formData}) {
       ]}>
         <Text>{formData?.email}</Text>
         <Text>linkedin</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image style={styles.icon} src={location} />
-            <Text>location</Text>
-          </View>
+        <Text>location</Text>
       </View>
-     
-        {/* <View style={[{ width: "150px", height: "160px" }]}>
-          <Image src={formData?.image} />
-        </View>       */}
+
+<View style={[{
+  display: 'flex',
+  gap: 4
+}
+]}>
+  <View style={[{
+    width: '40%'
+  }]}>
+      <View style={[styles.section]}>
+        <Text style={[styles.header]}>Experience</Text>
+        <Text>Title</Text>
+        <Text>CompanyName</Text>
+        <Text>DatePeriod</Text>
+      </View>
+  </View>
+
+  <View>
+
+  </View>
+</View>
+       
     </Page>
   </Document>
   )
 }
+
+
+
+
+ {/* <View style={[{ width: "150px", height: "160px" }]}>
+          <Image src={formData?.image} />
+        </View>       */}
